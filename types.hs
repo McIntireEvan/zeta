@@ -1,10 +1,12 @@
 module ZetaTypes where
 
-data Token = TokenAdd
-           | TokenSub
-           | TokenIntType
-           | TokenInt Int
-           | TokenEmpty
+data Token = TokAdd
+           | TokSub
+           | TokMult
+           | TokDiv
+           | TokIntType
+           | TokInt Int
+           | TokEmpty
            deriving(Show, Eq)
 
 data Expr = Add Expr Expr

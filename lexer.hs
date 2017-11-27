@@ -2,16 +2,18 @@ import Text.Regex.PCRE
 import ZetaTypes
 
 regex_pairs = [
-        ("(\\+)", TokenAdd),
-        ("(\\-)", TokenSub),
-        ("(-?[0-9]+)", TokenIntType),
-        ("([ \t\n\r])", TokenEmpty)
+        ("(\\+)", TokAdd),
+        ("(\\-)", TokSub),
+        ("(\\*)", TokMult),
+        ("(\\/)", TokDiv),
+        ("(-?[0-9]+)", TokIntType),
+        ("([ \t\n\r])", TokEmpty)
     ]
 
 lexString :: String -> [Token]
 lexString [] = []
 lexString str = let (rem, tok) = getTok str in
-    if tok == TokenEmpty
+    if tok == TokEmpty
         then lexString rem
         else tok:(lexString rem)
 
@@ -34,6 +36,6 @@ select (s, b, h, v) =
     let l = length h in (drop l s, (selectToken v h))
 
 selectToken :: Token -> String -> Token
-selectToken token matched
-    | token == TokenIntType = (TokenInt (read matched :: Int))
-    | otherwise = token
+selectToken tok matched
+    | tok == TokIntType = (TokInt (read matched :: Int))
+    | otherwise = tok
