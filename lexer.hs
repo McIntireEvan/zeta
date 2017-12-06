@@ -3,6 +3,7 @@ import Text.Regex.PCRE
 import Zeta.Types
 
 -- Regular expressions and their associated tokens
+-- TODO: Negative numbers don't work
 regex_pairs = [
         ("(\\+)", TokAdd),
         ("(\\-)", TokSub),
@@ -12,6 +13,7 @@ regex_pairs = [
         ("([ \t\n\r])", TokEmpty)
     ]
 
+-- | Lexes a string into a list of tokens
 lexString :: String -> [Token]
 lexString [] = [TokEmpty]
 lexString str = let (rem, tok) = getTok str in

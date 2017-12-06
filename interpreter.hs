@@ -3,6 +3,7 @@ import Zeta.Types
 import Zeta.Parser
 import Zeta.Lexer
 
+-- | Evaluates an expression into an Int
 eval :: Expr -> Int
 eval expr = case expr of
     (Add e1 e2) -> eval(e1) + eval(e2)
@@ -12,5 +13,7 @@ eval expr = case expr of
         if ex2 == 0 then error "Div by zero" else eval(e1) `div` ex2
     Int(Just s) -> s
 
+-- | Strings the lexer, parser, and interpreter together
+-- | TODO: Move?
 run :: String -> Int
 run str = let (expr, toks) = parse (lexString str) in eval(expr)
