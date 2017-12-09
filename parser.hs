@@ -36,7 +36,7 @@ parse toks = parseToks toks precedence
 parseToks :: [Token] -> [([Token], ExprType)] -> (Expr, [Token])
 parseToks toks [] = error "Cannot match"
 parseToks toks [([TokInt Nothing], Unary)] =
-    (parseInt toks, matchToken toks (head toks))
+    (matchUnary toks, matchToken toks (head toks))
 parseToks toks prec =
     let ((l,etype):t) = prec in
     let (exp, rem) = parseToks toks t
@@ -51,8 +51,8 @@ parseToks toks prec =
 
 -- | Turns an Int token into an expression
 -- | TODO: Expand into a `matchUnary` function
-parseInt :: [Token] -> Expr
-parseInt toks =
+matchUnary :: [Token] -> Expr
+matchUnary toks =
     let TokInt(Just s) = (head toks) in Int(Just s)
 
 -- | Creates a binary expression given a token

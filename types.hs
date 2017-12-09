@@ -5,7 +5,7 @@ data Token = TokAdd
            | TokMult
            | TokDiv
            | TokIntType
-           | TokInt (Maybe Int)
+           | TokInt (Maybe Double)
            | TokEmpty
            deriving(Show, Eq)
 
@@ -13,7 +13,7 @@ data Expr = Add Expr Expr
           | Sub Expr Expr
           | Mult Expr Expr
           | Div Expr Expr
-          | Int (Maybe Int)
+          | Int (Maybe Double)
 
 data ExprType = Unary
               | Binary

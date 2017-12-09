@@ -3,13 +3,13 @@ import Text.Regex.PCRE
 import Zeta.Types
 
 -- Regular expressions and their associated tokens
--- TODO: Negative numbers don't work
+-- TODO: Subtraction implictly requires a space after it
 regex_pairs = [
+        ("(-?[0-9]+(?:\\.[0-9]+)?)", TokInt Nothing),
         ("(\\+)", TokAdd),
         ("(\\-)", TokSub),
         ("(\\*)", TokMult),
         ("(\\/)", TokDiv),
-        ("(-?[0-9]+)", TokInt Nothing),
         ("([ \t\n\r])", TokEmpty)
     ]
 
@@ -46,5 +46,5 @@ select (s, b, h, v) =
 -- | Selects a token, sometimes adding extra info
 selectToken :: Token -> String -> Token
 selectToken tok matched
-    | tok == (TokInt Nothing) = (TokInt (Just (read matched :: Int)))
+    | tok == (TokInt Nothing) = (TokInt (Just (read matched :: Double)))
     | otherwise = tok
